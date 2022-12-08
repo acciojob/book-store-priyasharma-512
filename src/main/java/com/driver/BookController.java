@@ -12,18 +12,16 @@ import java.util.List;
 public class BookController {
     @Autowired
     BookService bookService;
-    static int id = 0;
+
     // One example controller, make the rest by yourself
     @PostMapping("/create-book")
-    public ResponseEntity createBook(@RequestBody Book book){
-        id++;
-        book.setId(id);
+    public ResponseEntity<Book> createBook(@RequestBody Book book){
         Book newbook = bookService.createBook(book);
         return new ResponseEntity<>(newbook, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-book-by-id/{id}")
-    public ResponseEntity getBookById(@PathVariable("id") String id)
+    public ResponseEntity<Book> getBookById(@PathVariable("id") String id)
     {
         return new ResponseEntity<>(bookService.findBookById(id),HttpStatus.CREATED);
     }
